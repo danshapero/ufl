@@ -5,6 +5,7 @@ __authors__ = "Martin Sandve Alnæs"
 __date__ = "2011-04-14 -- 2011-04-14"
 
 import pytest
+import numpy as np
 
 from ufl import *
 from ufl.classes import Indexed
@@ -85,6 +86,15 @@ def test_complex(self):
     assert f5 == f2 + f3
     assert f4 == f5
     assert f6 + f7 == f2 + f3
+
+
+def test_numpy_types(self):
+    f1 = as_ufl(np.float64(1.0))
+    f2 = as_ufl(np.complex64(2j))
+    f3 = as_ufl(np.int64(3))
+    assert f1 == FloatValue(1.0)
+    assert f2 == ComplexValue(2j)
+    assert f3 == IntValue(3)
 
 
 def test_scalar_sums(self):
