@@ -11,6 +11,7 @@
 # Modified by Massimiliano Leoni, 2016.
 
 from math import atan2
+from numbers import Integral, Real, Complex
 
 from ufl.log import error, UFLValueError
 from ufl.core.expr import Expr
@@ -427,12 +428,12 @@ def as_ufl(expression):
     "Converts expression to an Expr if possible."
     if isinstance(expression, Expr):
         return expression
-    elif isinstance(expression, complex):
-        return ComplexValue(expression)
-    elif isinstance(expression, float):
-        return FloatValue(expression)
-    elif isinstance(expression, int):
+    elif isinstance(expression, Integral):
         return IntValue(expression)
+    elif isinstance(expression, Real):
+        return FloatValue(expression)
+    elif isinstance(expression, Complex):
+        return ComplexValue(expression)
     else:
         raise UFLValueError("Invalid type conversion: %s can not be converted"
                             " to any UFL type." % str(expression))
